@@ -8,10 +8,13 @@ const cheerio = require('cheerio');
  */
 const parse = data => {
   const $ = cheerio.load(data);
-  const name = $('.section-main h2.restaurant-details__heading--title').text();
+  const name = $('h2.restaurant-details__heading--title').text();
+  const adresse = $('.section-main ul.restaurant-details__heading--list > li:nth-child(1)').text();
   const experience = $('#experience-section > ul > li:nth-child(2)').text();
+  const price = $('.section-main ul.restaurant-details__heading--list > li:nth-child(2)').text();
+  const spe = $('.section-main div.restaurant-details__text-componets--text ').text();
 
-  return {name, experience};
+  return {name, adresse, price, experience,spe};
 };
 
 /**

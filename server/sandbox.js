@@ -1,10 +1,9 @@
 /* eslint-disable no-console, no-process-exit */
 const michelin = require('./michelin');
-
-async function sandbox (searchLink = 'https://guide.michelin.com/fr/fr/centre-val-de-loire/veuves/restaurant/l-auberge-de-la-croix-blanche') {
+async function sandbox (searchLink = 'https://guide.michelin.com/fr/fr/ile-de-france/paris/restaurant/le-petit-verdot-du-17eme') {
   try {
     console.log(`🕵️‍♀️  browsing ${searchLink} source`);
-
+    
     const restaurant = await michelin.scrapeRestaurant(searchLink);
 
     console.log(restaurant);
