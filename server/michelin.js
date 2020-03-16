@@ -6,6 +6,7 @@ const cheerio = require('cheerio');
  * @param  {String} data - html response
  * @return {Object} restaurant
  */
+
 const parse = data => {
   const $ = cheerio.load(data);
   const name = $('h2.restaurant-details__heading--title').text();
@@ -13,9 +14,20 @@ const parse = data => {
   const experience = $('#experience-section > ul > li:nth-child(2)').text();
   const price = $('.section-main ul.restaurant-details__heading--list > li:nth-child(2)').text();
   const spe = $('.section-main div.restaurant-details__text-componets--text ').text();
-
-  return {name, adresse, price, experience,spe};
+  const test = $('h1').text();
+  //name, adresse, price, experience,spe,
+  var tab = [];
+  $("a.link").each(function( index ) { 
+    console.log(index + ": " + $(this).attr("href"));
+    tab.push($(this).attr("href"));
+  });
+  return {tab};
 };
+
+const parselink = link => {
+  const $ = cheerio.load(data);
+  const url = $('a').attr("href");
+}
 
 /**
  * Scrape a given restaurant url

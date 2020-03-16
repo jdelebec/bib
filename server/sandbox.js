@@ -1,11 +1,9 @@
 /* eslint-disable no-console, no-process-exit */
 const michelin = require('./michelin');
-async function sandbox (searchLink = 'https://guide.michelin.com/fr/fr/ile-de-france/paris/restaurant/le-petit-verdot-du-17eme') {
+async function sandbox (searchLink) {
   try {
-    console.log(`🕵️‍♀️  browsing ${searchLink} source`);
-    
+    console.log(`🕵️‍♀️  browsing ${searchLink} source`);   
     const restaurant = await michelin.scrapeRestaurant(searchLink);
-
     console.log(restaurant);
     console.log('done');
     process.exit(0);
@@ -15,6 +13,11 @@ async function sandbox (searchLink = 'https://guide.michelin.com/fr/fr/ile-de-fr
   }
 }
 
+
 const [,, searchLink] = process.argv;
 
-sandbox(searchLink);
+for (let pas = 1; pas < 2; pas++) {
+  nb_page = parseInt(pas);
+  sandbox('https://guide.michelin.com/fr/fr/restaurants/bib-gourmand/page/' + nb_page);
+}
+
