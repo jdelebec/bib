@@ -8,20 +8,20 @@ function App() {
       <header className="App-header">
 		<title>My first styled page</title>
         <p>
-          Edit <code>src/App.js</code> and save to reload.
+          List of Bib restaurant scrap from michelin website
         </p>
         <a
-          className="App-link"
-          href="https://reactjs.org"
+          className="michelin_link"
+          href="https://guide.michelin.com/fr/fr/restaurants/bib-gourmand/"
           target="_blank"
           rel="noopener noreferrer"
         >
-          Learn React
+          discover website
         </a>
       </header>
-	  <body>
+	  <body className="body">
 		<p>
-          Edit <code>src/App.js</code> and save to reload.
+          List of restaurant : 
         </p>
 	  </body>
     </div>

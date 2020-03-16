@@ -7,24 +7,8 @@ const cheerio = require('cheerio');
  * @return {Object} restaurant
  */
 
-const parse = data => {
-  const $ = cheerio.load(data);
-  const name = $('h2.restaurant-details__heading--title').text();
-  const adresse = $('.section-main ul.restaurant-details__heading--list > li:nth-child(1)').text();
-  const experience = $('#experience-section > ul > li:nth-child(2)').text();
-  const price = $('.section-main ul.restaurant-details__heading--list > li:nth-child(2)').text();
-  const spe = $('.section-main div.restaurant-details__text-componets--text ').text();
-  const test = $('h1').text();
-  //name, adresse, price, experience,spe,
-  var tab = [];
-  $("a.link").each(function( index ) { 
-    console.log(index + ": " + $(this).attr("href"));
-    tab.push($(this).attr("href"));
-  });
-  return tab;
-};
 
-
+ //to get all link on a single page
 const search_link_rest = data => {
   const $ = cheerio.load(data);
   var link = [];
@@ -52,6 +36,32 @@ module.exports.scrapeRestaurant_link = async url => {
   return null;
 };
 
+
+const rest_resume = data => {
+  const $ = cheerio.load(data);
+
+  var name = $('.section-main h2.restaurant-details__heading--title').text();
+  name = name.toLocaleLowerCase();
+  name = name.replace('�',"o").replace('ô','o').replace(/\s/g,"").replace('-',"").replace('-',"").replace('\'',"").replace('ö','o').replace('ù','u').replace('û','u').replace('ü','u').replace("î","i").replace("ï","i").replace("à","a").replace("â","a").replace("ä","a").replace("é","e").replace("è","e").replace("ê","e").replace("ë","e").replace("ç","c");
+  var phone = $('span.flex-fill').first().text();
+  var city = $('body > main > div.restaurant-details > div.container > div > div.col-xl-8.col-lg-7 > section.section.section-main.restaurant-details__main > div.restaurant-details__heading.d-none.d-lg-block > ul').text();
+  city = city.toLocaleLowerCase();
+  var address = $('body > main > div.restaurant-details > div.container > div > div.col-xl-8.col-lg-7 > section.section.section-main.restaurant-details__main > div.restaurant-details__heading.d-none.d-lg-block > ul > li:nth-child(1)').text().trim();
+  return { name, phone, city, address};
+};
+
+
+module.exports.scrapeRestaurant_resume = async url => {
+  const response = await axios(url);
+  const { data, status } = response;
+  if (status >= 200 && status < 300) {
+    return rest_resume(data);
+  }
+  console.error(status);
+  return null;
+};
+
+
 module.exports.scrapeRestaurant = async url => {
   const response = await axios(url);
   const {data, status} = response;
@@ -71,4 +81,21 @@ module.exports.scrapeRestaurant = async url => {
  */
 module.exports.get = () => {
   return [];
+};
+
+const parse = data => {
+  const $ = cheerio.load(data);
+  const name = $('h2.restaurant-details__heading--title').text();
+  const adresse = $('.section-main ul.restaurant-details__heading--list > li:nth-child(1)').text();
+  const experience = $('#experience-section > ul > li:nth-child(2)').text();
+  const price = $('.section-main ul.restaurant-details__heading--list > li:nth-child(2)').text();
+  const spe = $('.section-main div.restaurant-details__text-componets--text ').text();
+  const test = $('h1').text();
+  //name, adresse, price, experience,spe,
+  var tab = [];
+  $("a.link").each(function( index ) { 
+    console.log(index + ": " + $(this).attr("href"));
+    tab.push($(this).attr("href"));
+  });
+  return tab;
 };
