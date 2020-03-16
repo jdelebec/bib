@@ -1,3 +1,10 @@
+How it works:
+
+Use cmd and go to git/bib/memory/public and use npm start to start the localhost website.
+
+To update the scrapped data, you must launch sandbox.js (node sandbox.js) in the folder where is sandbox.js (bib/server)
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

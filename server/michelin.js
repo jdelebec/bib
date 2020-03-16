@@ -43,9 +43,8 @@ const rest_resume = data => {
   var name = $('.section-main h2.restaurant-details__heading--title').text();
   name = name.toLocaleLowerCase();
   name = name.replace('�',"o").replace('ô','o').replace(/\s/g,"").replace('-',"").replace('-',"").replace('\'',"").replace('ö','o').replace('ù','u').replace('û','u').replace('ü','u').replace("î","i").replace("ï","i").replace("à","a").replace("â","a").replace("ä","a").replace("é","e").replace("è","e").replace("ê","e").replace("ë","e").replace("ç","c");
+  
   var phone = $('span.flex-fill').first().text();
-  var city = $('body > main > div.restaurant-details > div.container > div > div.col-xl-8.col-lg-7 > section.section.section-main.restaurant-details__main > div.restaurant-details__heading.d-none.d-lg-block > ul').text();
-  city = city.toLocaleLowerCase();
   var address = $('body > main > div.restaurant-details > div.container > div > div.col-xl-8.col-lg-7 > section.section.section-main.restaurant-details__main > div.restaurant-details__heading.d-none.d-lg-block > ul > li:nth-child(1)').text().trim();
   return { name, phone, city, address};
 };

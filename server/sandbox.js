@@ -21,14 +21,14 @@ async function sandbox (searchLink = url_bib_gourmand ) {
     var list_rest_resume = [];  
     for(var i = 0; i < links_bib_gourmand.length; i++){
       console.log(i);
-      var restaurant = await michelin.scrapeRestaurant(links_bib_gourmand[i]);
-      restaurant = {name: restaurant.name, phone: restaurant.phone, city: restaurant.city, address: restaurant.address, link: links_bib_gourmand[i]}
+      var restaurant = await michelin.scrapeRestaurant_resume(links_bib_gourmand[i]);
+      restaurant = {name: restaurant.name, phone: restaurant.phone, address: restaurant.address, link: links_bib_gourmand[i]}
       console.log(restaurant);
       list_rest_resume.push(restaurant);
     }
 
     var fs = require('fs');
-    fs.writeFileSync('./list_rest.json', JSON.stringify(list_rest_resume, null, 4), (err) => {
+    fs.writeFileSync('../memory/src/list_rest.json', JSON.stringify(list_rest_resume, null, 4), (err) => {
       if (err) {
         console.error(err);
         return;
@@ -36,13 +36,8 @@ async function sandbox (searchLink = url_bib_gourmand ) {
       console.log("File has been created");
     });
 
-
-
-    console.log(links_bib_gourmand[0]);
+    console.log("done");
     process.exit(0);
-
-
-
   } catch (e) {
     console.error(e);
     process.exit(1);
