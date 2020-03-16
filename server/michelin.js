@@ -21,12 +21,17 @@ const parse = data => {
     console.log(index + ": " + $(this).attr("href"));
     tab.push($(this).attr("href"));
   });
-  return {tab};
+  return tab;
 };
 
-const parselink = link => {
+
+const search_link_rest = data => {
   const $ = cheerio.load(data);
-  const url = $('a').attr("href");
+  var link = [];
+  $("a.link").each(function( index ) { 
+    link.push($(this).attr("href"));
+  });
+  return link;
 }
 
 /**
@@ -34,6 +39,19 @@ const parselink = link => {
  * @param  {String}  url
  * @return {Object} restaurant
  */
+
+module.exports.scrapeRestaurant_link = async url => {
+  const response = await axios(url);
+  const {data, status} = response;
+
+  if (status >= 200 && status < 300) {
+    return search_link_rest(data);
+  }
+
+  console.error(status);
+  return null;
+};
+
 module.exports.scrapeRestaurant = async url => {
   const response = await axios(url);
   const {data, status} = response;
