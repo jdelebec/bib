@@ -9,6 +9,13 @@ async function sandbox (searchLink = url_bib_gourmand ) {
   try {
     console.log(`🕵️‍♀️  browsing ${searchLink} source`);   
 
+    //get number of page
+    var nb_page = await michelin.scrapFirstPage(searchLink);
+    console.log(nb_page);
+
+
+
+
     //get all url from all restaurant website
     var links_bib_gourmand = [];
     for(var i = 1; i <= 15; i++){
@@ -18,6 +25,7 @@ async function sandbox (searchLink = url_bib_gourmand ) {
       link.forEach(element => links_bib_gourmand.push('https://guide.michelin.com' + element));
     }
 
+    //get all detail and information for each restaurant
     var list_rest_resume = [];  
     for(var i = 0; i < links_bib_gourmand.length; i++){
       console.log(i);
@@ -27,6 +35,7 @@ async function sandbox (searchLink = url_bib_gourmand ) {
       list_rest_resume.push(restaurant);
     }
 
+    //write json file
     var fs = require('fs');
     fs.writeFileSync('../memory/src/list_rest.json', JSON.stringify(list_rest_resume, null, 4), (err) => {
       if (err) {

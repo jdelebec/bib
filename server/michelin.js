@@ -36,7 +36,7 @@ module.exports.scrapeRestaurant_link = async url => {
   return null;
 };
 
-
+//scrap resume in restaurant page
 const rest_resume = data => {
   const $ = cheerio.load(data);
 
@@ -61,6 +61,7 @@ module.exports.scrapeRestaurant_resume = async url => {
 };
 
 
+//Use as example
 module.exports.scrapeRestaurant = async url => {
   const response = await axios(url);
   const {data, status} = response;
@@ -73,6 +74,35 @@ module.exports.scrapeRestaurant = async url => {
 
   return null;
 };
+
+
+const firstPage_count = data => {
+  const $ = cheerio.load(data);
+  var nbOfRestau = $('body > div.col-md-3.annuaire_sidebar > form.form_facet > div.filters-wrapper > div.filters-inner > div.row > div.col-md-12 > div.bloc_filters > div.filter_content > ul > li').text();
+  reg = /\d+/g;
+  result = nbOfRestau.match(reg);
+  nbOfRestau = parseInt(result[0])
+  nbOfPages = nbOfRestau / 10;
+  nbOfPages = Math.ceil(nbOfPages)
+  return nbOfPages;
+}
+
+module.exports.scrapFirstPage = async url => {
+  const response = await axios(url);
+  const {data, status} = response;
+
+  if (status >= 200 && status < 300) {
+    return firstPage_count(data);
+  }
+
+  console.error(status);
+
+  return null;
+};
+
+
+
+
 
 /**
  * Get all France located Bib Gourmand restaurants
