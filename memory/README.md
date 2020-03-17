@@ -4,6 +4,7 @@ Use cmd and go to git/bib/memory/public and use npm start to start the localhost
 
 To update the scrapped data, you must launch sandbox.js (node sandbox.js) in the folder where is sandbox.js (bib/server)
 
+Unfortunately display in react doesn't show the json because i had version problem with ajax from Jquery, but the json is there as well as the react
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
