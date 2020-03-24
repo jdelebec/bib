@@ -1,5 +1,6 @@
 /* eslint-disable no-console, no-process-exit */
 const michelin = require('./michelin');
+const maitre = require('./maitre');
 
 url_bib_gourmand = 'https://guide.michelin.com/fr/fr/restaurants/bib-gourmand/';
 
@@ -10,15 +11,15 @@ async function sandbox (searchLink = url_bib_gourmand ) {
     console.log(`🕵️‍♀️  browsing ${searchLink} source`);   
 
     //get number of page
-    var nb_page = await michelin.scrapFirstPage(searchLink);
-    console.log(nb_page);
+    var nb_page = await michelin.scrapFirstPage("https://guide.michelin.com/fr/fr/restaurants/bib-gourmand/");
+    console.log("nb_page = " + nb_page);
 
 
 
 
     //get all url from all restaurant website
     var links_bib_gourmand = [];
-    for(var i = 1; i <= 15; i++){
+    for(var i = 1; i <= parseInt(nb_page); i++){
       console.log("page :" + i);
       const link = await michelin.scrapeRestaurant_link('https://guide.michelin.com/fr/fr/restaurants/bib-gourmand/page/' + String(i));
       //console.log(link);
@@ -31,7 +32,7 @@ async function sandbox (searchLink = url_bib_gourmand ) {
       console.log(i);
       var restaurant = await michelin.scrapeRestaurant_resume(links_bib_gourmand[i]);
       restaurant = {name: restaurant.name, phone: restaurant.phone, address: restaurant.address, link: links_bib_gourmand[i]}
-      console.log(restaurant);
+      //console.log(restaurant);
       list_rest_resume.push(restaurant);
     }
 

@@ -23,7 +23,33 @@
 
 .michelin_link {
   color: #61dafb;
-  
+
+}
+
+.table_header{
+  background-color: #FFFAF0;
+  width: 100%;
+  color: black;
+  font-weight: 20px;
+  border: 1px solid black;
+}
+
+.table{
+  background-color: #FFFAF0;
+  width: 100%;
+  color: black;
+  text-align: left;
+  font-weight: smaller;
+  border: 1px solid black;
+  border-collapse: collapse;
+
+}
+
+.row{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+	
 }
 
 .body 

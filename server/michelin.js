@@ -46,7 +46,7 @@ const rest_resume = data => {
   
   var phone = $('span.flex-fill').first().text();
   var address = $('body > main > div.restaurant-details > div.container > div > div.col-xl-8.col-lg-7 > section.section.section-main.restaurant-details__main > div.restaurant-details__heading.d-none.d-lg-block > ul > li:nth-child(1)').text().trim();
-  return { name, phone, city, address};
+  return { name, phone, address};
 };
 
 
@@ -78,12 +78,13 @@ module.exports.scrapeRestaurant = async url => {
 
 const firstPage_count = data => {
   const $ = cheerio.load(data);
-  var nbOfRestau = $('body > div.col-md-3.annuaire_sidebar > form.form_facet > div.filters-wrapper > div.filters-inner > div.row > div.col-md-12 > div.bloc_filters > div.filter_content > ul > li').text();
+  var nbOfRestau = $('body > main > section.section-main.search-results.search-listing-result > div > div > div.search-results__count > div.d-flex.align-items-end.search-results__status.box-placeholder > div.flex-fill.js-restaurant__stats > h1').text();
   reg = /\d+/g;
   result = nbOfRestau.match(reg);
-  nbOfRestau = parseInt(result[0])
-  nbOfPages = nbOfRestau / 10;
+  nbOfRestau = parseInt(result[2])
+  nbOfPages = nbOfRestau / 40;
   nbOfPages = Math.ceil(nbOfPages)
+  //console.log("test : " + nbOfPages);
   return nbOfPages;
 }
 
@@ -112,6 +113,9 @@ module.exports.get = () => {
   return [];
 };
 
+
+
+//test code
 const parse = data => {
   const $ = cheerio.load(data);
   const name = $('h2.restaurant-details__heading--title').text();
